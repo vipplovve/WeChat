@@ -1,11 +1,18 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 map<long long, long long> hashtable;
 
+vector<vector<long long>> graph(2e5 + 1, vector<long long> ());
+
+vector<long long> levels(2e5 + 1);
+
+vector<bool> visited(2e5 + 1);
+
 long long UsernameHash(string username)
 {
-    long long ModValue = 98746231;
+    long long ModValue = 10139;
 
     long long EncryptedUsername = 0;
 
@@ -25,7 +32,7 @@ long long UsernameHash(string username)
 
 long long PasswordHash(string Password)
 {
-    long long ModValue = 10235749;
+    long long ModValue = 10139;
 
     long long EncryptedPassword = 0;
 
@@ -132,7 +139,66 @@ void DeleteUser()
     return;
 }
 
+void AddFriends(string username1, string username2)
+{
+    long long user1 = UsernameHash(username1);
+
+    long long user2 = UsernameHash(username2);
+
+    if(Existence(user1) && Existence(user2))
+    {
+        graph[user1].push_back(user2);
+        graph[user2].push_back(user1);
+
+        cout << "The Two Users Have Been Successfully Made Friends! \n\n";
+
+        return;
+    }
+
+    else
+    {
+        cout << "Invalid Usernames Entered! \n\n";
+
+        return;
+    }
+}
+
+void Mutuals(string user1, string user2)
+{
+    long long root = UsernameHash(user1);
+
+    queue <long long> q;
+
+    q.push(root);
+
+    visited[root] = true;
+
+    while(!q.empty())
+    {
+        long long current = q.front();
+
+        q.pop();
+
+        visited[current] = true;
+
+        for(auto neighbour : graph[current])
+            if(!visited[neighbour])
+            {
+                levels[neighbour] = 1 + levels[current];
+
+                q.push(neighbour);
+                
+                visited[neighbour] = true;
+            }
+    }
+    
+    long long user2hash = UsernameHash(user2);
+
+    cout << endl << "Shortest Count of Users Between " << user1 << " & " << user2 << " is : " << levels[user2hash] << endl;
+}
+
 int main()
 {
+
     return 0;
 }
