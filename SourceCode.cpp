@@ -1,4 +1,9 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
+#include <map>
+#include <vector>
+#include <cmath>
+#include <queue>
 
 using namespace std;
 
@@ -11,6 +16,8 @@ vector<vector<long long>> graph(2e5 + 1, vector<long long> ());
 vector<long long> levels(2e5 + 1);
 
 vector<bool> visited(2e5 + 1);
+
+vector<string> status(2e5 + 1);
 
 long long UsernameHash(string username)
 {
@@ -55,6 +62,7 @@ long long PasswordHash(string Password)
 bool authenticate(string username, string password)
 {
     long long user = UsernameHash(username);
+
     long long passwd = PasswordHash(password);
 
     if(hashtable[user] == passwd)
@@ -66,7 +74,7 @@ bool authenticate(string username, string password)
 
 bool Existence(long long username)
 {
-    map<long long,long long>::iterator exists;
+    map<long long,long long> :: iterator exists;
 
     exists = hashtable.find(username);
 
@@ -77,9 +85,36 @@ bool Existence(long long username)
         return true;
 }
 
+string AddStatus()
+{
+    cout << "Enter No. of Words In Your Status : ";
+
+    long long words;
+
+    cin >> words;
+
+    string stat = "";
+    
+    string dummy;
+
+    while(words--)
+    {
+        cin >> dummy;
+
+        stat += dummy;
+
+        stat += ' ';
+    }
+
+    stat += '.';
+
+    return stat;
+}
+
 void addUser()
 {
     string username;
+
     string password;
 
     cout << "\nEnter A Username : ";
@@ -93,7 +128,7 @@ void addUser()
 
     else
     {
-        cout << "Enter A Password : ";
+        cout << endl << "Enter A Password : ";
 
         cin >> password;
 
@@ -105,6 +140,12 @@ void addUser()
 
         cout << "\nUser has been Added!\n";
     }
+
+    cout << endl << "Enter the Message You'd Like to Display as your Status: -" << endl << endl;
+
+    status[EncryptedUsername] = AddStatus();
+
+    cout << endl << "Your Status Has Been Successfully Set! ";
 
     return;
 }
@@ -262,27 +303,38 @@ void Mutuals(string user1, string user2)
     cout << endl << "Shortest Count of Users Between " << user1 << " & " << user2 << " is : " << levels[user2hash] << endl;
 }
 
+void Exit()
+{
+    cout << endl << "Terminating the Program... " << endl << endl;
+
+    cout << "Thanks For Using WeChat! " << endl << endl;
+
+    return;
+}
+
 int main()
 {
     string input = "proceed";
 
     while(input != "KillTheProgram#404")
     {
-        cout << "Welcome to Our Program!" << endl << endl;
+        cout << endl << endl << "Welcome to Our Program!" << endl << endl;
 
         cout << "What Would You Like To Do? (Please Choose An Option From the List) :- " << endl << endl;
 
-        cout << "1. Log-In" << endl;
-        cout << "2. Sign-Up" << endl;
+        cout << "1. Log-In (LI). " << endl;
+
+        cout << "2. Sign-Up (SU). " << endl;
+
         cout << "Exit (Type Special Command)" << endl << endl;
 
         cin >> input;
 
-        if(input == "Log-In")
+        if(input == "LI")
         {
             string name, password;
 
-            cout << "Enter Your Username : ";
+            cout << endl << "Enter Your Username : ";
 
             cin >> name;
 
@@ -292,14 +344,14 @@ int main()
 
             if(!found)
             {
-                cout << "Error. Invalid Username Entered! " << endl << endl;
+                cout << endl << "Error. Invalid Username Entered! " << endl << endl;
 
-                cout << "Returning to Main Menu..." << endl << endl;
+                cout << endl << "Returning to Main Menu..." << endl << endl;
                 
                 continue;
             }
             
-            cout << "Enter Your Password : ";
+            cout << endl << "Enter Your Password : ";
 
             cin >> password;
 
@@ -309,16 +361,16 @@ int main()
 
             if(!auth)
             {
-                cout << "Error. Invalid Password Entered! " << endl << endl;
+                cout << endl << "Error. Invalid Password Entered! " << endl << endl;
 
-                cout << "Returning to Main Menu..." << endl << endl;
+                cout << endl << "Returning to Main Menu..." << endl << endl;
                 
                 continue;
             }
 
-            cout << "Congratulations " << name << "! You Have Been Successfully Logged-In.." << endl << endl;
+            cout << endl << "Congratulations " << name << "! You Have Been Successfully Logged-In.." << endl << endl;
 
-            while(input != "GoBack")
+            while(input != "GB")
             {
                 cout << "What Would You Like to Do? " << endl << endl;
 
@@ -332,13 +384,21 @@ int main()
 
                 cout << "5. Delete Your Account (DA)." << endl << endl;
 
-                cout << "6. Go Back (GB). " << endl << endl;
+                cout << "6. Your Profile Details (PD). " << endl << endl;
+
+                cout << "7. Edit Status (ES). " << endl << endl;
+
+                cout << "8. Edit Password (EP). " << endl << endl;
+
+                cout << "9. View Friend's Status (VFS). " << endl << endl;
+
+                cout << "10. Go Back (GB). " << endl << endl;
 
                 cin >> input;
 
                 if(input == "VCF")
                 {
-                    cout << endl << endl << "Displaying Current Friend List: - " << endl << endl;
+                    cout << endl << "Displaying Current Friend List: - " << endl << endl;
 
                     for(long long x = 0 ; x < graph[hashedUsername].size() ; x++)
                         cout << "#" << x + 1 << " : " << names[graph[hashedUsername][x]] << endl << endl;
@@ -352,7 +412,7 @@ int main()
                 {
                     string friendsName;
 
-                    cout << endl << endl << "Enter Your Friend's Name : " << endl << endl;
+                    cout << endl << "Enter Your Friend's Name : " << endl << endl;
 
                     cin >> friendsName;
 
@@ -379,7 +439,7 @@ int main()
                 {
                     string friendsName;
 
-                    cout << endl << endl << "Enter Your Friend's Name : " << endl << endl;
+                    cout << endl << "Enter Your Friend's Name : " << endl << endl;
 
                     cin >> friendsName;
 
@@ -406,7 +466,7 @@ int main()
                 {
                     string friendsName;
 
-                    cout << endl << endl << "Enter Your Friend's Name : " << endl << endl;
+                    cout << endl << "Enter Your Friend's Name : " << endl << endl;
 
                     cin >> friendsName;
 
@@ -428,12 +488,102 @@ int main()
 
                     system("pause");
                 }
-                
+
                 else if(input == "DA")
                 {
                     DeleteUser();
 
                     break;
+                }
+                
+                else if(input == "PD")
+                {
+                    cout << endl << "Displaying User Details : - \n\n";
+
+                    cout << "Name : " << names[hashedUsername] << endl << endl;
+
+                    cout << "Password : ";
+
+                    for(long long x = 0 ; x < password.size()/2 ; x++)
+                        cout << " * ";
+                    
+                    for(long long x = password.size() / 2 ; x < password.size() ; x++)
+                        cout << ' ' << password[x] << ' ';
+                    
+                    cout << endl << endl;
+
+                    cout << "Status : " << status[hashedUsername] << endl << endl;
+
+                    system("pause");
+                }
+
+                else if(input == "EP")
+                {
+                    cout << endl << "Enter New Password : ";
+
+                    string pass;
+
+                    cin >> pass;
+
+                    long long hashedpass = PasswordHash(pass);
+
+                    hashtable[hashedUsername] = hashedpass;
+
+                    cout << endl << "Your Password Has Been Successfully Changed! " << endl;
+
+                    system("pause");
+                }
+
+                else if(input == "ES")
+                {
+                    cout << endl << "Initiating Status Updation Procedure... " << endl << endl;
+
+                    string newstatus = AddStatus();
+
+                    status[hashedUsername] = newstatus;
+
+                    cout << endl << "Your Status Has Been Updated!" << endl << endl;
+
+                    system("pause");
+                }
+
+                else if(input == "VFS")
+                {
+                    string friendsName;
+
+                    cout << endl << "Enter Your Friend's Name : " << endl << endl;
+
+                    cin >> friendsName;
+
+                    long long hashedfriendsName = UsernameHash(friendsName);
+
+                    bool found = Existence(hashedfriendsName);
+
+                    if(!found)
+                    {
+                        cout << "Error. Invalid Username Entered! " << endl << endl;
+
+                        cout << "Returning to Main Menu..." << endl << endl;
+                        
+                        continue;
+                    }
+
+                    vector<long long> :: iterator it = find(graph[hashedUsername].begin(), graph[hashedUsername].end(), hashedfriendsName);
+
+                    if(it == graph[hashedUsername].end())
+                    {
+                        cout << "Error. This Person Is Not Your Friend! " << endl << endl;
+
+                        cout << "Returning to Main Menu..." << endl << endl;
+                        
+                        continue;
+                    }
+
+                    cout << endl << friendsName << "'s Status is : - \n\n";
+
+                    cout << status[hashedfriendsName] << endl << endl;
+
+                    system("pause");
                 }
 
                 else if(input == "GB")
@@ -441,9 +591,9 @@ int main()
             }
         }
 
-        else if(input == "Sign-Up")
+        else if(input == "SU")
         {
-            cout << endl << endl << "Initiating Registration Procedure.." << endl << endl;
+            cout << endl << "Initiating Registration Procedure.." << endl;
 
             addUser();
 
@@ -451,5 +601,7 @@ int main()
         }
     }
 
+    Exit();
+    
     return 0;
 }
