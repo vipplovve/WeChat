@@ -13,9 +13,9 @@ map<long long, string> names;
 
 vector<vector<long long>> graph(2e5 + 1, vector<long long> ());
 
-vector<long long> levels(2e5 + 1);
+vector<long long> levels(2e5 + 1, 0);
 
-vector<bool> visited(2e5 + 1);
+vector<bool> visited(2e5 + 1, false);
 
 vector<string> status(2e5 + 1);
 
@@ -299,8 +299,12 @@ void Mutuals(string user1, string user2)
     }
     
     long long user2hash = UsernameHash(user2);
+    
+    if(levels[user2hash])
+        cout << endl << "Shortest Count of Users Between " << user1 << " & " << user2 << " is : " << levels[user2hash] - 1 << endl;
 
-    cout << endl << "Shortest Count of Users Between " << user1 << " & " << user2 << " is : " << levels[user2hash] << endl;
+    else 
+        cout << endl << "The Two Users Have No Common Friends." << endl;
 }
 
 void Exit()
