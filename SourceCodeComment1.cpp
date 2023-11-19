@@ -287,7 +287,6 @@ int main()
         cout << endl << endl << "Welcome to Our Program!" << endl << endl;
 
         cout << "What Would You Like To Do? (Please Choose An Option From the List) :- " << endl << endl;
-
         cout << "1. Log-In (LI). " << endl;
         cout << "2. Sign-Up (SU). " << endl;
         cout << "Exit (Type Special Command)" << endl << endl;
@@ -297,12 +296,9 @@ int main()
         if(input == "LI")
         {
             string name, password;
-
             cout << endl << "Enter Your Username : ";
             cin >> name;
-
             long long hashedUsername = UsernameHash(name);
-
             bool found = Existence(hashedUsername);
 
             if(!found)
@@ -341,24 +337,159 @@ int main()
                 cout << "8. Edit Password (EP). " << endl << endl;
                 cout << "9. View Friend's Status (VFS). " << endl << endl;
                 cout << "10. Go Back (GB). " << endl << endl;
-
                 cin >> input;
 
                 if(input == "VCF")
                 {
                     cout << endl << "Displaying Current Friend List: - " << endl << endl;
-
                     for(long long x = 0 ; x < graph[hashedUsername].size() ; x++)
                         cout << "#" << x + 1 << " : " << names[graph[hashedUsername][x]] << endl << endl;
 
                     cout << "In Total, You Have " << graph[hashedUsername].size() << " Friends." << endl << endl;
-
                     system("pause");
                 }
+                else if(input == "AF")
+                {
+                    string friendsName;
+                    cout << endl << "Enter Your Friend's Name : " << endl << endl;
+                    cin >> friendsName;
+                    long long hashedfriendsName = UsernameHash(friendsName);
+                    bool found = Existence(hashedfriendsName);
+
+                    if(!found)
+                    {
+                        cout << "Error. Invalid Username Entered! " << endl << endl;
+                        cout << "Returning to Main Menu..." << endl << endl;  
+                        continue;
+                    }
+
+                    else
+                        AddFriends(name,friendsName);
+                    system("pause");
+                }
+
+                else if(input == "RF")
+                {
+                    string friendsName;
+                    cout << endl << "Enter Your Friend's Name : " << endl << endl;
+                    cin >> friendsName;
+                    long long hashedfriendsName = UsernameHash(friendsName);
+                    bool found = Existence(hashedfriendsName);
+
+                    if(!found)
+                    {
+                        cout << "Error. Invalid Username Entered! " << endl << endl;
+                        cout << "Returning to Main Menu..." << endl << endl;
+                        continue;
+                    }
+
+                    else 
+                        RemoveFriends(name,friendsName);
+                    system("pause");
+                }
+
+                else if(input == "VM")
+                {
+                    string friendsName;
+                    cout << endl << "Enter Your Friend's Name : " << endl << endl;
+                    cin >> friendsName;
+                    long long hashedfriendsName = UsernameHash(friendsName);
+                    bool found = Existence(hashedfriendsName);
+
+                    if(!found)
+                    {
+                        cout << "Error. Invalid Username Entered! " << endl << endl;
+                        cout << "Returning to Main Menu..." << endl << endl;
+                        continue;
+                    }
+
+                    else
+                        Mutuals(name,friendsName);
+                    system("pause");
+                }
+
+                else if(input == "DA")
+                {
+                    DeleteUser();
+                    break;
+                }
+                
+                else if(input == "PD")
+                {
+                    cout << endl << "Displaying User Details : - \n\n";
+                    cout << "Name : " << names[hashedUsername] << endl << endl;
+                    cout << "Password : ";
+
+                    for(long long x = 0 ; x < password.size()/2 ; x++)
+                        cout << " * ";
+                    
+                    for(long long x = password.size() / 2 ; x < password.size() ; x++)
+                        cout << ' ' << password[x] << ' ';
+                    
+                    cout << endl << endl;
+                    cout << "Status : " << status[hashedUsername] << endl << endl;
+                    system("pause");
+                }
+
+                else if(input == "EP")
+                {
+                    cout << endl << "Enter New Password : ";
+                    string pass;
+                    cin >> pass;
+                    long long hashedpass = PasswordHash(pass);
+                    hashtable[hashedUsername] = hashedpass;
+                    cout << endl << "Your Password Has Been Successfully Changed! " << endl;
+                    system("pause");
+                }
+
+                else if(input == "ES")
+                {
+                    cout << endl << "Initiating Status Updation Procedure... " << endl << endl;
+                    string newstatus = AddStatus();
+                    status[hashedUsername] = newstatus;
+                    cout << endl << "Your Status Has Been Updated!" << endl << endl;
+                    system("pause");
+                }
+
+                else if(input == "VFS")
+                {
+                    string friendsName;
+                    cout << endl << "Enter Your Friend's Name : " << endl << endl;
+                    cin >> friendsName;
+                    long long hashedfriendsName = UsernameHash(friendsName);
+                    bool found = Existence(hashedfriendsName);
+
+                    if(!found)
+                    {
+                        cout << "Error. Invalid Username Entered! " << endl << endl;
+                        cout << "Returning to Main Menu..." << endl << endl;
+                        continue;
+                    }
+
+                    vector<long long> :: iterator it = find(graph[hashedUsername].begin(), graph[hashedUsername].end(), hashedfriendsName);
+                    if(it == graph[hashedUsername].end())
+                    {
+                        cout << "Error. This Person Is Not Your Friend! " << endl << endl;
+                        cout << "Returning to Main Menu..." << endl << endl;
+                        continue;
+                    }
+
+                    cout << endl << friendsName << "'s Status is : - \n\n";
+                    cout << status[hashedfriendsName] << endl << endl;
+                    system("pause");
+                }
+                else if(input == "GB")
+                    break;
             }
         }
-    }
 
+        else if(input == "SU")
+        {
+            cout << endl << "Initiating Registration Procedure.." << endl;
+            addUser();
+            system("pause");
+        }
+    }
     Exit();
     return 0;
 }
