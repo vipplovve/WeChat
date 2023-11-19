@@ -449,14 +449,9 @@ generated which will be different from previous upto 9 times
 in best case */
 void random_greeting()
 {
-    mt19937 rng(time(nullptr));
-    
-    int lowerBound = 1;
-    int upperBound = 9;
+    int randomNum = (rand()*15815) % 10;
 
-    uniform_int_distribution<int> distribution(lowerBound, upperBound);
-
-    int randomNum = distribution(rng);
+    cout << endl;
 
     switch(randomNum)
         {
@@ -488,6 +483,8 @@ void random_greeting()
             cout<< "  Prayer is the key of the morning and the bolt of the evening.  "  <<endl;
                 break;
             }
+        
+    cout << endl;
 
 }
 
@@ -582,7 +579,9 @@ int main()
 
                 if(input=="RG")
                 {
-                 random_greeting();
+                    random_greeting();
+
+                    system("pause");
                 }
                     
               else  if(input == "VCF")
