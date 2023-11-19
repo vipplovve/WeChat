@@ -298,7 +298,7 @@ void RemoveFriends(string username1, string username2)
 /* this function makes 2 friends mutuals if 
 they have a common friend */
 
-void Mutuals(string user1, string user2)
+void DistinctUserCount(string user1, string user2)
 {
     long long root = UsernameHash(user1);
 
@@ -468,7 +468,7 @@ int main()
 
                 cout << "3. Remove A Friend (RF)." << endl << endl;
 
-                cout << "4. View Mutuals (VM)." << endl << endl;
+                cout << "4. View Distinct User Count. (DUC)." << endl << endl;
 
                 cout << "5. Delete Your Account (DA)." << endl << endl;
 
@@ -557,7 +557,7 @@ int main()
                     system("pause");
                 }
 
-                else if(input == "VM")
+                else if(input == "DUC")
                 {
                     string friendsName;
 
@@ -579,7 +579,7 @@ int main()
                     }
 
                     else
-                        Mutuals(name,friendsName);
+                        DistinctUserCount(name,friendsName);
 
                     system("pause");
                 }
