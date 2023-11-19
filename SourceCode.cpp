@@ -265,7 +265,7 @@ void DeleteUser()
             hashtable.erase(found);
 
             cout << "\nUser has been Deleted!\n";
-
+            
             for(long long x = 0 ; x < graph.size() ; x++)
             {   
                 //graph iterator to find the username node in our connected graph
@@ -277,6 +277,7 @@ void DeleteUser()
             }
 
             cout << endl << "The User Has Also Been Removed From The Friend-Lists of All Active Users." << endl;
+            cout << "\nThanks for being our family member, we will miss you. (◞‸◟；) ♡\n";
         }
     }
     
@@ -463,28 +464,26 @@ void random_greeting()
             break;
             case 3:
             cout<<" The next morning dawned bright and sweet, like ribbon candy "<<endl;
-               break;
+            break;
             case 4:
             cout<< " You can only come to the morning through the shadows. " <<endl;
-           break;
+            break;
             case 5:
             cout<<  " Every morning is a beautiful morning.  " <<endl;
-         break;
+            break;
             case 6:
             cout<< "  Make each day your masterpiece  "  <<endl;
-              break;
+            break;
             case 7:
             cout<< "  Not the day only, but all things have their morning  "  <<endl;
-              break;
+            break;
             case 8:
             cout<< "  The sun is new each day.  "  <<endl;
-                break;
+            break;
             case 9:
             cout<< "  Prayer is the key of the morning and the bolt of the evening.  "  <<endl;
-                break;
-            }
-        
-    cout << endl;
+            break;
+        }
 
 }
 
@@ -497,18 +496,23 @@ int main()
 
     while(input != "KillTheProgram#404")
     {
-        cout << endl << endl << "Welcome to Our Program!" << endl << endl;
+        cout << endl << endl << "Welcome to Our Program! o(◑ω◐)づ"<< endl << endl;
 
         cout << "What Would You Like To Do? (Please Choose An Option From the List) :- " << endl << endl;
 
+        //you need to either sign in or sign up 
+        
+        //Enter LI into terminal for Login In
         cout << "1. Log-In (LI). " << endl;
-
+        
+        //Enter SU into terminal for Sign Up
         cout << "2. Sign-Up (SU). " << endl;
 
         cout << "Exit (Type Special Command)" << endl << endl;
 
         cin >> input;
-
+        
+        //You can login only if you have an account associate with our program
         if(input == "LI")
         {
             string name, password;
@@ -516,11 +520,14 @@ int main()
             cout << endl << "Enter Your Username : ";
 
             cin >> name;
-
+            
+            //will call UsernameHash() to convert username into encrypted format
             long long hashedUsername = UsernameHash(name);
-
+            
+            //will call Existence() function to check whether username exists in our program
             bool found = Existence(hashedUsername);
-
+            
+            //if username not found end the Login In terminal
             if(!found)
             {
                 cout << endl << "Error. Invalid Username Entered! " << endl << endl;
@@ -530,13 +537,16 @@ int main()
                 continue;
             }
             
+            //otherwise ask to enter your password
             cout << endl << "Enter Your Password : ";
 
             cin >> password;
-
+            
+            //will call PasswordHash() function to convert password into encrypted format
             long long hashedPassword = PasswordHash(password);
-
-            bool auth = authenticate(name, password);
+            
+            //will call authenticate() function to check whether password correspond to username
+            bool auth =  authenticate(name, password);
 
             if(!auth)
             {
@@ -546,48 +556,52 @@ int main()
                 
                 continue;
             }
-
+            
+            //successfull login only if username and password are correct
             cout << endl << "Congratulations " << name << "! You Have Been Successfully Logged-In.." << endl << endl;
-
+            
+            //Upon entering GB, the program will end otherwise continue to run
             while(input != "GB")
             {
                 cout << "What Would You Like to Do? " << endl << endl;
 
-                cout << "1. View Current Friends (VCF)." << endl << endl;
+                cout << "1. View Current Friends (VCF)." << endl << endl;  //Enter VCF into terminal
 
-                cout << "2. Add A Friend (AF)." << endl << endl;
+                cout << "2. Add A Friend (AF)." << endl << endl;  //Enter AF into terminal
+                
+                cout << "3. Remove A Friend (RF)." << endl << endl;  //Enter RF into terminal
+ 
+                cout << "4. View Distinct User Count. (DUC)." << endl << endl;  //Enter DUC into terminal
 
-                cout << "3. Remove A Friend (RF)." << endl << endl;
+                cout << "5. Delete Your Account (DA)." << endl << endl;  //Enter DA into terminal
 
-                cout << "4. View Distinct User Count. (DUC)." << endl << endl;
+                cout << "6. Your Profile Details (PD). " << endl << endl;  //Enter PD into terminal
 
-                cout << "5. Delete Your Account (DA)." << endl << endl;
+                cout << "7. Edit Status (ES). " << endl << endl;  //Enter ES into terminal
 
-                cout << "6. Your Profile Details (PD). " << endl << endl;
+                cout << "8. Edit Password (EP). " << endl << endl;  //Enter EP into terminal
 
-                cout << "7. Edit Status (ES). " << endl << endl;
+                cout << "9. View Friend's Status (VFS). " << endl << endl;  //Enter VFS into terminal
 
-                cout << "8. Edit Password (EP). " << endl << endl;
+                cout << "10. Go Back (GB). " << endl << endl;  //Enter GB into terminal
 
-                cout << "9. View Friend's Status (VFS). " << endl << endl;
+                cout << "11. Give us a try to make your day good (RG). " << endl << endl;  //Enter RG into terminal
 
-                cout << "10. Go Back (GB). " << endl << endl;
-
-                cout << "11. Give us a try to make your day good (RG). " << endl << endl;
-
+                //Enter any of given 11 options above
                 cin >> input;
-
+                
+                //will call random_greeting() function to make your day ٩(ˊᗜˋ*)و ♡
                 if(input=="RG")
                 {
-                    random_greeting();
-
-                    system("pause");
+                 random_greeting();
                 }
-                    
-              else  if(input == "VCF")
+                
+                //operation to list the friends of the user
+                else if(input == "VCF")
                 {
                     cout << endl << "Displaying Current Friend List: - " << endl << endl;
-
+                    
+                    //traverse the graph for the user and print the friends' names from names array 
                     for(long long x = 0 ; x < graph[hashedUsername].size() ; x++)
                         cout << "#" << x + 1 << " : " << names[graph[hashedUsername][x]] << endl << endl;
 
@@ -595,17 +609,21 @@ int main()
 
                     system("pause");
                 }
-
+                
+                //operation to add a friend
                 else if(input == "AF")
                 {
                     string friendsName;
 
                     cout << endl << "Enter Your Friend's Name : " << endl << endl;
-
+ 
+                    //ask for the username of the user you want to add as friend
                     cin >> friendsName;
 
+                    //will convert friendname to encrypted format using UsernameHash() function
                     long long hashedfriendsName = UsernameHash(friendsName);
-
+                    
+                    //call Existence() function to check whether your friend have an account in our program
                     bool found = Existence(hashedfriendsName);
 
                     if(!found)
@@ -616,23 +634,27 @@ int main()
                         
                         continue;
                     }
-
+                    //if friend have an account, just add it as your friend calling AddFriends()
                     else
                         AddFriends(name,friendsName);
 
                     system("pause");
                 }
 
+                //operation to Remove a friend
                 else if(input == "RF")
-                {
+                { 
                     string friendsName;
 
                     cout << endl << "Enter Your Friend's Name : " << endl << endl;
 
+                    //ask for the username of the user you want to add as friend
                     cin >> friendsName;
 
+                    //will convert friendname to encrypted format using UsernameHash() function
                     long long hashedfriendsName = UsernameHash(friendsName);
 
+                    //call Existence() function to check whether your friend have an account in our program
                     bool found = Existence(hashedfriendsName);
 
                     if(!found)
@@ -643,23 +665,28 @@ int main()
                         
                         continue;
                     }
-
+ 
+                    //if friend have an account, just remove it from your friendlist calling AddFriends()
                     else 
                         RemoveFriends(name,friendsName);
 
                     system("pause");
                 }
 
+                //operation to get the mutual friends between two users 
                 else if(input == "DUC")
                 {
                     string friendsName;
 
                     cout << endl << "Enter Your Friend's Name : " << endl << endl;
 
+                    //ask for the username of the user you want to add as friend
                     cin >> friendsName;
 
+                    //will convert friendname to encrypted format using UsernameHash() function
                     long long hashedfriendsName = UsernameHash(friendsName);
 
+                    //call Existence() function to check whether your friend have an account in our program
                     bool found = Existence(hashedfriendsName);
 
                     if(!found)
@@ -670,22 +697,28 @@ int main()
                         
                         continue;
                     }
-
+                    
+                    //call DistinctUserCount() function which uses BFS concept
                     else
                         DistinctUserCount(name,friendsName);
 
                     system("pause");
                 }
 
+                //operation to delete your account
                 else if(input == "DA")
                 {
+                    //call function DeleteUser()
+                    //We recommend you to not to delete it o(╥﹏╥)o
                     DeleteUser();
 
                     break;
                 }
                 
+                //operation to fetch your profile details
                 else if(input == "PD")
-                {
+                { 
+                    //will display your username, password and status
                     cout << endl << "Displaying User Details : - \n\n";
 
                     cout << "Name : " << names[hashedUsername] << endl << endl;
@@ -704,17 +737,20 @@ int main()
 
                     system("pause");
                 }
-
+                
+                //operation to edit your profile details
                 else if(input == "EP")
                 {
                     cout << endl << "Enter New Password : ";
 
                     string pass;
-
+                    //ask new password
                     cin >> pass;
-
+                    
+                    //call PasswordHash() to convert pass into encrypted format
                     long long hashedpass = PasswordHash(pass);
 
+                    //update your old password with newpassword
                     hashtable[hashedUsername] = hashedpass;
 
                     cout << endl << "Your Password Has Been Successfully Changed! " << endl;
@@ -722,12 +758,15 @@ int main()
                     system("pause");
                 }
 
+                //operation to edit your status
                 else if(input == "ES")
                 {
                     cout << endl << "Initiating Status Updation Procedure... " << endl << endl;
 
+                    //call AddStatus() function where you can add new status
                     string newstatus = AddStatus();
-
+ 
+                    //update your status with new one
                     status[hashedUsername] = newstatus;
 
                     cout << endl << "Your Status Has Been Updated!" << endl << endl;
@@ -735,18 +774,22 @@ int main()
                     system("pause");
                 }
 
+                //operation to view your friend's status
                 else if(input == "VFS")
                 {
                     string friendsName;
 
                     cout << endl << "Enter Your Friend's Name : " << endl << endl;
-
+                    //enter the friend name whose status you want to see
                     cin >> friendsName;
-
+ 
+                    //convert friendname into encrypted format
                     long long hashedfriendsName = UsernameHash(friendsName);
-
+ 
+                    //check whether friend exist in our program
                     bool found = Existence(hashedfriendsName);
-
+                    
+                    //if not found, will terminate the operation
                     if(!found)
                     {
                         cout << "Error. Invalid Username Entered! " << endl << endl;
@@ -755,9 +798,11 @@ int main()
                         
                         continue;
                     }
-
+                    
+                    //iterator to find the friend from your friend list in graph
                     vector<long long> :: iterator it = find(graph[hashedUsername].begin(), graph[hashedUsername].end(), hashedfriendsName);
 
+                    //if iterator points to end+1 then not found, terminate the operation
                     if(it == graph[hashedUsername].end())
                     {
                         cout << "Error. This Person Is Not Your Friend! " << endl << endl;
@@ -766,7 +811,8 @@ int main()
                         
                         continue;
                     }
-
+                    
+                    //otherwise show the status 
                     cout << endl << friendsName << "'s Status is : - \n\n";
 
                     cout << status[hashedfriendsName] << endl << endl;
@@ -774,15 +820,18 @@ int main()
                     system("pause");
                 }
 
+                //operation to go back to previous page or operation
                 else if(input == "GB")
                     break;
             }
         }
-
+        
+        //if not login then operation for sign up will run
         else if(input == "SU")
         {
-            cout << endl << "Initiating Registration Procedure.." << endl;
-
+            cout << endl << "Have a Cappuccino while we're registering you.. ☕︎"<<endl;
+            
+            //call addUser() function to add you in our program
             addUser();
 
             system("pause");
