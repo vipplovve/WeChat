@@ -59,6 +59,10 @@ long long PasswordHash(string Password)
     return EncryptedPassword;
 }
 
+/* this function is taking a username and password in input
+in form of strings and authenticating whether the given 
+password corressponds correctly to the given user or not */  
+
 bool authenticate(string username, string password)
 {
     long long user = UsernameHash(username);
@@ -72,6 +76,10 @@ bool authenticate(string username, string password)
         return false;
 }
 
+/* This function is taking a username as an input
+and verifying whether a user with this username exists 
+or not */
+
 bool Existence(long long username)
 {
     map<long long,long long> :: iterator exists;
@@ -84,6 +92,10 @@ bool Existence(long long username)
     else
         return true;
 }
+
+/* By using this function a user can 
+add a status to their profile to 
+give their update to their friends */
 
 string AddStatus()
 {
@@ -110,6 +122,9 @@ string AddStatus()
 
     return stat;
 }
+
+/* this function is to create a new profile 
+    on we chat for a user */
 
 void addUser()
 {
@@ -149,6 +164,9 @@ void addUser()
 
     return;
 }
+
+/* this function is for deleting a
+user profile from we chat */
 
 void DeleteUser()
 {   
@@ -194,6 +212,11 @@ void DeleteUser()
     return;
 }
 
+/* this function is for making two different users,
+friend of each other ( technically linking their profiles )
+on wechat so that they can use multiple features provided on
+we chat for friends */
+
 void AddFriends(string username1, string username2)
 {
     long long user1 = UsernameHash(username1);
@@ -216,6 +239,10 @@ void AddFriends(string username1, string username2)
         return;
     }
 }
+
+/* this function is to unfriend 
+any two profiles 
+on wechat */
 
 void RemoveFriends(string username1, string username2)
 {
@@ -268,6 +295,8 @@ void RemoveFriends(string username1, string username2)
     }
 }
 
+/* this function makes 2 friends mutuals if 
+they have a common friend */
 
 void Mutuals(string user1, string user2)
 {
@@ -307,6 +336,9 @@ void Mutuals(string user1, string user2)
         cout << endl << "The Two Users Have No Common Friends." << endl;
 }
 
+/*this function terminates out of the 
+terminal and ends the program */
+
 void Exit()
 {
     cout << endl << "Terminating the Program... " << endl << endl;
@@ -315,6 +347,58 @@ void Exit()
 
     return;
 }
+
+/* this is an additional feature in wechat ,
+whenever a user calls this function a random greeting is 
+generated which will be different from previous upto 9 times 
+in best case */
+
+void random_greeting()
+{
+    mt19937 rng(time(nullptr));
+    
+    int lowerBound = 1;
+    int upperBound = 9;
+
+    uniform_int_distribution<int> distribution(lowerBound, upperBound);
+
+    int randomNum = distribution(rng);
+
+    switch(randomNum)
+        {
+            case 1:
+            cout<<"The silence in the morning holds lots of expectations and is more hopeful than the silence at night."<<endl;
+            break;
+            case 2:
+            cout<<"I like my coffee black and my mornings bright."<<endl;
+            break;
+            case 3:
+            cout<<" The next morning dawned bright and sweet, like ribbon candy "<<endl;
+               break;
+            case 4:
+            cout<< " You can only come to the morning through the shadows. " <<endl;
+           break;
+            case 5:
+            cout<<  " Every morning is a beautiful morning.  " <<endl;
+         break;
+            case 6:
+            cout<< "  Make each day your masterpiece  "  <<endl;
+              break;
+            case 7:
+            cout<< "  Not the day only, but all things have their morning  "  <<endl;
+              break;
+            case 8:
+            cout<< "  The sun is new each day.  "  <<endl;
+                break;
+            case 9:
+            cout<< "  Prayer is the key of the morning and the bolt of the evening.  "  <<endl;
+                break;
+            }
+
+}
+
+
+// here is our main function //
 
 int main()
 {
@@ -398,9 +482,16 @@ int main()
 
                 cout << "10. Go Back (GB). " << endl << endl;
 
+                cout << "11. Give us a try to make your day good (RG). " << endl << endl;
+
                 cin >> input;
 
-                if(input == "VCF")
+                if(input=="RG")
+                {
+                 random_greeting();
+                }
+                    
+              else  if(input == "VCF")
                 {
                     cout << endl << "Displaying Current Friend List: - " << endl << endl;
 
