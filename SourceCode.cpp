@@ -430,7 +430,10 @@ void DistinctUserCount(string user1, string user2)
     
     //otherwise no connection between user1 and user2
     else 
-        cout << endl << "The Two Users Have No Common Friends." << endl;
+        cout << endl << "The Two Users Have No Common Friends." << endl << endl;
+
+    levels.assign(2e5 + 1, 0);
+    visited.assign(2e5 + 1, false);
 }
 
 /*this function terminates out of the 
