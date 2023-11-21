@@ -430,7 +430,10 @@ void DistinctUserCount(string user1, string user2)
     
     //otherwise no connection between user1 and user2
     else 
-        cout << endl << "The Two Users Have No Common Friends." << endl;
+        cout << endl << "The Two Users Have No Common Friends." << endl << endl;
+
+    levels.assign(2e5 + 1, 0);
+    visited.assign(2e5 + 1, false);
 }
 
 /*this function terminates out of the 
@@ -530,6 +533,8 @@ int main()
             //if username not found end the Login In terminal
             if(!found)
             {
+                clrscr();
+                
                 cout << endl << "Error. Invalid Username Entered! " << endl << endl;
 
                 cout << endl << "Returning to Main Menu..." << endl << endl;
@@ -550,12 +555,16 @@ int main()
 
             if(!auth)
             {
+                clrscr();
+                
                 cout << endl << "Error. Invalid Password Entered! " << endl << endl;
 
                 cout << endl << "Returning to Main Menu..." << endl << endl;
                 
                 continue;
             }
+
+            clrscr();
             
             //successfull login only if username and password are correct
             cout << endl << "Congratulations " << name << "! You Have Been Successfully Logged-In.." << endl << endl;
@@ -593,12 +602,16 @@ int main()
                 //will call random_greeting() function to make your day ٩(ˊᗜˋ*)و ♡
                 if(input=="RG")
                 {
-                 random_greeting();
+                    clrscr();
+                     
+                    random_greeting();
                 }
                 
                 //operation to list the friends of the user
                 else if(input == "VCF")
                 {
+                    clrscr();
+                    
                     cout << endl << "Displaying Current Friend List: - " << endl << endl;
                     
                     //traverse the graph for the user and print the friends' names from names array 
@@ -613,6 +626,8 @@ int main()
                 //operation to add a friend
                 else if(input == "AF")
                 {
+                    clrscr();
+                    
                     string friendsName;
 
                     cout << endl << "Enter Your Friend's Name : " << endl << endl;
@@ -644,6 +659,8 @@ int main()
                 //operation to Remove a friend
                 else if(input == "RF")
                 { 
+                    clrscr();
+                    
                     string friendsName;
 
                     cout << endl << "Enter Your Friend's Name : " << endl << endl;
@@ -676,6 +693,8 @@ int main()
                 //operation to get the mutual friends between two users 
                 else if(input == "DUC")
                 {
+                    clrscr();
+                    
                     string friendsName;
 
                     cout << endl << "Enter Your Friend's Name : " << endl << endl;
@@ -708,16 +727,22 @@ int main()
                 //operation to delete your account
                 else if(input == "DA")
                 {
+                    clrscr();
+                    
                     //call function DeleteUser()
                     //We recommend you to not to delete it o(╥﹏╥)o
                     DeleteUser();
-
+        
                     break;
+
+                    system("pause");
                 }
                 
                 //operation to fetch your profile details
                 else if(input == "PD")
                 { 
+                    clrscr();
+                    
                     //will display your username, password and status
                     cout << endl << "Displaying User Details : - \n\n";
 
@@ -741,6 +766,8 @@ int main()
                 //operation to edit your profile details
                 else if(input == "EP")
                 {
+                    clrscr();
+                    
                     cout << endl << "Enter New Password : ";
 
                     string pass;
@@ -761,6 +788,8 @@ int main()
                 //operation to edit your status
                 else if(input == "ES")
                 {
+                    clrscr();
+                    
                     cout << endl << "Initiating Status Updation Procedure... " << endl << endl;
 
                     //call AddStatus() function where you can add new status
@@ -777,6 +806,8 @@ int main()
                 //operation to view your friend's status
                 else if(input == "VFS")
                 {
+                    clrscr();
+                    
                     string friendsName;
 
                     cout << endl << "Enter Your Friend's Name : " << endl << endl;
@@ -805,6 +836,8 @@ int main()
                     //if iterator points to end+1 then not found, terminate the operation
                     if(it == graph[hashedUsername].end())
                     {
+                        clrscr();
+                        
                         cout << "Error. This Person Is Not Your Friend! " << endl << endl;
 
                         cout << "Returning to Main Menu..." << endl << endl;
@@ -829,6 +862,8 @@ int main()
         //if not login then operation for sign up will run
         else if(input == "SU")
         {
+            clrscr();
+            
             cout << endl << "Have a Cappuccino while we're registering you.. ☕︎"<<endl;
             
             //call addUser() function to add you in our program
